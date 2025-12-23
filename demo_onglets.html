@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démonstration - Nouveaux Onglets et Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .red-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .downloaded-row {
+            opacity: 0.8;
+        }
+        .undownloaded-row .client-name,
+        .undownloaded-row .sent-date {
+            font-weight: bold;
+        }
+        
+        /* Nouveaux styles d'onglets modernes */
+        .tabs-container {
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+        .tabs-wrapper {
+            display: flex;
+            space-x: 0;
+        }
+        .tab-button {
+            position: relative;
+            padding: 1rem 2rem 0.75rem 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #6b7280;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 0.5rem 0.5rem 0 0;
+            margin-right: 0.25rem;
+        }
+        .tab-button:hover {
+            color: #374151;
+            background-color: #f9fafb;
+            border-bottom-color: #d1d5db;
+        }
+        .tab-button.active {
+            color: #1f2937;
+            background-color: #ffffff;
+            border-bottom-color: #3b82f6;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Layout pour footer fixe */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .content-wrapper {
+            flex: 1;
+        }
+        .footer-wrapper {
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body class="page-wrapper bg-gray-100">
+    <!-- Navigation simplifiée -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="text-xl font-bold text-gray-800">🏥 MediWeb</div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <span class="text-gray-700">Dr. Martin</span>
+                    <a href="#" class="text-gray-500 hover:text-gray-700">Coordonnées</a>
+                    <button class="text-gray-500 hover:text-gray-700">Se déconnecter</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="overflow-x-auto">
+                        <!-- Onglets modernes -->
+                        <div class="tabs-container">
+                            <div class="tabs-wrapper">
+                                <button onclick="switchTab('medical')" 
+                                       class="tab-button active" id="tab-medical">
+                                    📋 Questionnaires médicaux
+                                </button>
+                                <button onclick="switchTab('rdv')" 
+                                       class="tab-button" id="tab-rdv">
+                                    🩺 RDV En ligne
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Contenu de l'onglet -->
+                        <div class="tab-content">
+                            <div class="mb-6">
+                                <h1 class="text-2xl font-bold text-gray-900 flex items-center" id="tab-title">
+                                    📋 <span class="ml-2">Questionnaires médicaux</span>
+                                </h1>
+                                <p class="text-gray-600 mt-1" id="tab-description">
+                                    Gérez vos questionnaires de santé
+                                </p>
+                            </div>
+                            
+                            <div class="bg-white rounded-lg shadow">
+                                <table class="min-w-full">
+                                    <thead>
+                                        <tr class="bg-gray-50 border-b border-gray-200">
+                                            <th class="py-4 px-6 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                                                Patients
+                                            </th>
+                                            <th class="py-4 px-6 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                                                Date d'envoi
+                                            </th>
+                                            <th class="py-4 px-6 text-center text-sm font-semibold text-gray-900 uppercase tracking-wider">
+                                                Télécharger le PDF
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200" id="table-body">
+                                        <!-- Données seront insérées ici par JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer avec mentions légales (maintenant en bas de page) -->
+    <footer class="footer-wrapper bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-sm mb-4">
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition duration-150 ease-in-out">Mentions légales</a> |
+                        <a href="#" class="text-blue-400 hover:text-blue-300 transition duration-150 ease-in-out">Politique de confidentialité</a>
+                    </p>
+                    <p class="text-xs text-gray-400">
+                        © 2025 Tous droits réservés. | Plateforme médicale sécurisée
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Données de démonstration
+        const medicalData = [
+            { name: "Sophie Dubois", date: "23/01/2025 14:30:00", downloaded: false },
+            { name: "Jean Martin", date: "22/01/2025 09:15:00", downloaded: true },
+            { name: "Marie Leblanc", date: "21/01/2025 16:45:00", downloaded: false },
+            { name: "Pierre Durand", date: "20/01/2025 11:20:00", downloaded: true }
+        ];
+
+        const rdvData = [
+            { name: "Alice Moreau", date: "25/01/2025 10:00:00", downloaded: false },
+            { name: "Paul Simon", date: "24/01/2025 15:30:00", downloaded: true },
+            { name: "Emma Rousseau", date: "23/01/2025 08:45:00", downloaded: false }
+        ];
+
+        function switchTab(tabType) {
+            // Mise à jour des onglets
+            document.getElementById('tab-medical').classList.remove('active');
+            document.getElementById('tab-rdv').classList.remove('active');
+            
+            const data = tabType === 'medical' ? medicalData : rdvData;
+            const title = tabType === 'medical' ? '📋 <span class="ml-2">Questionnaires médicaux</span>' : '🩺 <span class="ml-2">RDV En ligne</span>';
+            const description = tabType === 'medical' ? 'Gérez vos questionnaires de santé' : 'Gérez vos rendez-vous en ligne';
+            
+            document.getElementById(`tab-${tabType === 'medical' ? 'medical' : 'rdv'}`).classList.add('active');
+            document.getElementById('tab-title').innerHTML = title;
+            document.getElementById('tab-description').textContent = description;
+            
+            // Mise à jour du tableau
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+            
+            data.forEach(client => {
+                const row = document.createElement('tr');
+                row.className = `hover:bg-gray-50 transition-colors duration-150 ${client.downloaded ? 'downloaded-row' : 'undownloaded-row'}`;
+                
+                row.innerHTML = `
+                    <td class="py-4 px-6 text-center client-name">
+                        <div class="flex items-center justify-center">
+                            ${!client.downloaded ? '<span class="red-dot"></span>' : ''}
+                            <span class="text-gray-900">${client.name}</span>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-center sent-date">
+                        <span class="text-gray-700">${client.date}</span>
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        <button onclick="downloadPdf(this)" class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm rounded-lg transition duration-150 ease-in-out shadow-sm hover:shadow-md">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Télécharger
+                        </button>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function downloadPdf(button) {
+            // Simuler le téléchargement et la suppression du point rouge
+            const row = button.closest('tr');
+            const redDot = row.querySelector('.red-dot');
+            if (redDot) {
+                redDot.remove();
+                row.classList.remove('undownloaded-row');
+                row.classList.add('downloaded-row');
+                
+                // Animation de succès
+                button.innerHTML = '<span class="text-green-200">✓ Téléchargé</span>';
+                setTimeout(() => {
+                    button.innerHTML = `
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Télécharger
+                    `;
+                }, 2000);
+            }
+        }
+
+        // Initialiser avec les données médicales
+        switchTab('medical');
+    </script>
+</body>
+</html>
