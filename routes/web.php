@@ -58,6 +58,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Clients
     Route::get('/clients', [App\Http\Controllers\AdminController::class, 'clientsList'])->name('clients.index');
+    
+    // Google Analytics ID
+    Route::patch('/users/{user}/google-analytics-id', [App\Http\Controllers\AdminController::class, 'updateGoogleAnalyticsId'])->name('users.update-analytics-id');
 });
 
 // Routes pour définition de mot de passe
