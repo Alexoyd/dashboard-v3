@@ -119,16 +119,33 @@ class PdfUploadController extends Controller
         $path = storage_path('app/private/pdfs/' . $filename);
 
         if (file_exists($path)) {
-            // Trouver le client correspondant et marquer comme téléchargé
-            $client = Client::where('pdf_path', 'pdfs/' . $filename)
-                           ->whereNull('downloaded_at')
-                           ->first();
+            // Trouver le client correspondant
+            $client = Client::where('pdf_path', 'pdfs/' . $filename)->first();
             
-            if ($client) {
+            // Marquer comme téléchargé si pas encore fait
+            if ($client && !$client->downloaded_at) {
                 $client->update(['downloaded_at' => now()]);
             }
 
-            return response()->download($path);
+            // Générer le nom de fichier personnalisé
+            if ($client) {
+                // Format : \"Questionnaire médical {nom} {prénom} {date} {heure}.pdf\"
+                // Date au format français : 23-12-2025
+                // Heure au format : HH-MM-SS
+                $date = \Carbon\Carbon::parse($client->form_sent_at);
+                $downloadName = sprintf(
+                    'Questionnaire médical %s %s %s %s.pdf',
+                    $client->last_name,
+                    $client->first_name,
+                    $date->format('d-m-Y'),
+                    $date->format('H-i-s')
+                );
+            } else {
+                // Fallback si le client n'est pas trouvé
+                $downloadName = $filename;
+            }
+
+            return response()->download($path, $downloadName);
         } else {
             return response()->json(['message' => 'Fichier non trouvé'], 404);
         }
