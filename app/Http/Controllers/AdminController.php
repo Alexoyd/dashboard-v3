@@ -205,4 +205,22 @@ class AdminController extends Controller
 
         return redirect()->route('admin.settings.index')->with('success', 'Paramètres SMTP mis à jour avec succès');
     }
+
+    // ===== MISE À JOUR GOOGLE ANALYTICS ID =====
+
+    public function updateGoogleAnalyticsId(Request $request, User $user)
+    {
+        $request->validate([
+            'google_analytics_id' => 'nullable|string|max:50',
+        ]);
+
+        $user->update([
+            'google_analytics_id' => $request->google_analytics_id,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Google Analytics ID mis à jour avec succès'
+        ]);
+    }
 }
