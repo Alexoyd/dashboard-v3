@@ -15,8 +15,14 @@ class ClientController extends Controller
             return redirect()->route('login')->withErrors('Vous devez être connecté pour accéder à cette page.');
         }
 
-        // Récupérer le type d'onglet actuel (par défaut : questionnaire_medical)
-        $currentTab = $request->get('tab', 'questionnaire_medical');
+        // Récupérer le type d'onglet actuel (par défaut : dashboard)
+        $currentTab = $request->get('tab', 'dashboard');
+        
+        // Si c'est l'onglet dashboard, pas besoin de récupérer les clients
+        if ($currentTab === 'dashboard') {
+            $clients = collect(); // Collection vide
+            return view('clients.index', compact('clients', 'currentTab'));
+        }
         
         // Filtrer les clients liés à cet utilisateur et au type sélectionné
         $clients = Client::where('user_id', $user->id)
