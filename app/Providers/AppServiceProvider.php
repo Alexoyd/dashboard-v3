@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\LegalPage;
+use App\Services\Ga4ServiceFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(Ga4ServiceFactory::class, function () {
+            return new Ga4ServiceFactory();
+        });
     }
 
     /**

@@ -208,7 +208,7 @@
 
                                         <!-- Carte 3 : Pages vues -->
                                         <div class="dashboard-card" data-stat="pages_vues">
-                                            <div class="stat-number" data-value="pages_vues">0</div>
+                                            <div class="stat-number" data-value="pages_vues">@if($pageViews) {{number_format($pageViews['count'])}} @else Pas disponible @endif</div>
                                             <div class="stat-label">
                                                 <!-- Icône calendrier/pages -->
                                                 <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -218,9 +218,35 @@
                                             </div>
                                         </div>
 
+
+                                        <!-- Carte 5 : Statistique personnalisable 5 -->
+                                        <div class="dashboard-card" data-stat="stat_5">
+                                            <div class="stat-number" data-value="stat_5">@if($sessions) {{number_format($sessions['count'])}} @else Pas disponible @endif</div>
+                                            <div class="stat-label">
+                                                <!-- Icône graphique -->
+                                                <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                </svg>
+                                                <span data-label="stat_5">Séances</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Carte 6 : Statistique personnalisable 6 -->
+                                        <div class="dashboard-card" data-stat="stat_6">
+                                            <div class="stat-number" data-value="stat_6">@if($uniquePageViews) {{number_format($uniquePageViews['count'])}} @else Pas disponible @endif</div>
+                                            <div class="stat-label">
+                                                <!-- Icône utilisateurs -->
+                                                <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                                </svg>
+                                                <span data-label="stat_6">Utilisateurs uniques</span>
+                                            </div>
+                                        </div>
+
+                                        
                                         <!-- Carte 4 : Clicks pour prendre RDV -->
                                         <div class="dashboard-card" data-stat="clicks_rdv">
-                                            <div class="stat-number" data-value="clicks_rdv">0</div>
+                                            <div class="stat-number" data-value="clicks_rdv">@if($contactEvent) {{number_format($contactEvent['count'])}} @else Pas disponible @endif</div>
                                             <div class="stat-label">
                                                 <!-- Icône curseur/click -->
                                                 <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -229,30 +255,13 @@
                                                 <span data-label="clicks_rdv">Clicks pour prendre RDV</span>
                                             </div>
                                         </div>
-
-                                        <!-- Carte 5 : Statistique personnalisable 5 -->
-                                        <div class="dashboard-card" data-stat="stat_5">
-                                            <div class="stat-number" data-value="stat_5">0</div>
-                                            <div class="stat-label">
-                                                <!-- Icône utilisateurs -->
-                                                <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                                </svg>
-                                                <span data-label="stat_5">Statistique 5</span>
-                                            </div>
-                                        </div>
-
-                                        <!-- Carte 6 : Statistique personnalisable 6 -->
-                                        <div class="dashboard-card" data-stat="stat_6">
-                                            <div class="stat-number" data-value="stat_6">0</div>
-                                            <div class="stat-label">
-                                                <!-- Icône graphique -->
-                                                <svg class="stat-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                                </svg>
-                                                <span data-label="stat_6">Statistique 6</span>
-                                            </div>
-                                        </div>
+                                        @if($stats->isNotEmpty())
+                                                    @foreach ($stats as $stat)
+                                                        <br>{{ $stat['event'] }} - {{ number_format($stat['count']) }}
+                                                    @endforeach
+                                        @else
+                                            <!-- empty cards go here or notification on no data -->
+                                        @endif
                                     </div>
 
                                     {{-- 
