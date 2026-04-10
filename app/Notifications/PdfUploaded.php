@@ -36,8 +36,8 @@ class PdfUploaded extends Notification
     public function toMail($notifiable)
     {
         // Déterminer le template selon le type
-        $templateName = $this->client->type === 'rdv_en_ligne' 
-            ? 'nouveau_rdv_en_ligne' 
+        $templateName = $this->client->type === 'adressage' 
+            ? 'nouveau_adressage' 
             : 'nouveau_questionnaire_medical';
 
         // Récupérer le template
@@ -59,7 +59,7 @@ class PdfUploaded extends Notification
             'nom' => $this->client->last_name,
             'prenom' => $this->client->first_name,
             'date' => $this->client->form_sent_at->format('d/m/Y H:i'),
-            'type' => $this->client->type === 'rdv_en_ligne' ? 'Rendez-vous en ligne' : 'Questionnaire médical'
+            'type' => $this->client->type === 'adressage' ? 'Formulaire d\'adressage' : 'Questionnaire médical'
         ];
 
         // Traiter le template avec les variables

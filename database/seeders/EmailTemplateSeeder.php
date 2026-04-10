@@ -59,13 +59,13 @@ Si vous n'avez pas demandé la création de ce compte, ignorez cet email.
             ]
         );
 
-        // Template pour RDV en ligne (masqué pour v1, prévu pour v2)
+        // Template pour formulaire d'adressage
         EmailTemplate::updateOrCreate(
-            ['name' => 'nouveau_rdv_en_ligne'],
+            ['name' => 'nouveau_adressage'],
             [
-                'display_name' => 'Nouveau rendez-vous en ligne pris',
-                'subject' => 'Nouveau rendez-vous en ligne pris sur le dashboard',
-                'content' => "Un nouveau rendez-vous en ligne a été pris sur le site.
+                'display_name' => 'Nouveau formulaire d\'adressage reçu',
+                'subject' => 'Nouveau formulaire d\'adressage reçu sur le dashboard',
+                'content' => "Un nouveau formulaire d'adressage a été reçu sur le site.
 
 Nom : {nom}
 Prénom : {prenom}
@@ -74,9 +74,9 @@ Date du RDV : {date}
 Connectez-vous au dashboard pour le retrouver.
 
 — Mediweb",
-                'description' => 'Email envoyé aux professionnels de santé lors de la prise d\'un nouveau RDV en ligne via l\'API.',
+                'description' => 'Email envoyé aux professionnels de santé lors de la réception d\'un nouveau formulaire d\'adressage via l\'API.',
                 'available_variables' => ['nom', 'prenom', 'date', 'type'],
-                'is_active' => false // Masqué pour v1
+                'is_active' => true
             ]
         );
     

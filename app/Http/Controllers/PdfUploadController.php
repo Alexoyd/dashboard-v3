@@ -40,7 +40,7 @@ class PdfUploadController extends Controller
             'last_name' => 'required|string',
             'form_sent_at' => 'required|date',
             'pdf_file' => 'required|file|mimes:pdf',
-            'type' => 'required|in:questionnaire_medical,rdv_en_ligne', // Nouveau champ pour le type
+            'type' => 'required|in:questionnaire_medical,adressage', // Nouveau champ pour le type
         	'attachments.*' => 'nullable|file|mimes:odt,stl,docx,doc,pdf,jpg,jpeg,png|max:5120', // 5MB max par fichier
         ]);
             // Traitement du fichier PDF principal

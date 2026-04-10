@@ -22,6 +22,11 @@ class ClientController extends Controller
         // Si c'est l'onglet dashboard, pas besoin de récupérer les clients
         if ($currentTab === 'dashboard') {
             $clients = collect(); // Collection vide
+        	$stats = collect();
+            $pageViews = null;
+            $uniquePageViews = null;
+            $sessions = null;
+            $contactEvent = null;
 
             if ($user->google_analytics_id) {
 
