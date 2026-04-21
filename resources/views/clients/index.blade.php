@@ -265,7 +265,7 @@
 
                                     {{-- 
                                     ============================================================
-                                    INSTRUCTIONS POUR VOTRE COLL�?GUE - PERSONNALISATION
+                                    INSTRUCTIONS - PERSONNALISATION
                                     ============================================================
                                     
                                     Pour modifier les TITRES des cartes :
@@ -322,7 +322,7 @@
                                                         Date d'envoi
                                                     </th>
                                                     <th class="py-4 px-6 text-center text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
-                                                        Questionnaire médical
+                                                        {{ $currentTab == 'questionnaire_medical' ? 'Questionnaire médical' : 'Formulaire' }}
                                                     </th>
                                                     <th class="py-4 px-6 text-center text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
                                                         Pièces jointes
