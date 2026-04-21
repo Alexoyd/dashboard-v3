@@ -36,13 +36,38 @@ class PdfUploadController extends Controller
         try {
             Log::info('Données de la requête:', ['request' => $request->all()]);
         $validatedData = $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'form_sent_at' => 'required|date',
-            'pdf_file' => 'required|file|mimes:pdf',
-            'type' => 'required|in:questionnaire_medical,adressage', // Nouveau champ pour le type
-        	'attachments.*' => 'nullable|file|mimes:odt,stl,docx,doc,pdf,jpg,jpeg,png|max:5120', // 5MB max par fichier
-        ]);
+    		'first_name'   => 'required|string',
+    		'last_name'    => 'required|string',
+    		'form_sent_at' => 'required|date',
+    		'pdf_file'     => 'required|file|mimes:pdf',
+    		'type'         => 'required|in:questionnaire_medical,adressage',
+    		'attachments.*' => [
+        		'nullable', 'file', 'max:5120', // 5 Mo max par fichier
+        		function ($attribute, $value, $fail) {
+            		if (!$value instanceof \Illuminate\Http\UploadedFile) {
+                		return;
+            		}
+            		$ext  = strtolower($value->getClientOriginalExtension());
+            		$mime = $value->getMimeType();
+
+            		$allowed = [
+                		'pdf'  => ['application/pdf'],
+                		'doc'  => ['application/msword', 'application/vnd.ms-office', 'application/x-ole-storage', 'application/CDFV2'],
+                		'docx' => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip'],
+                		'odt'  => ['application/vnd.oasis.opendocument.text', 'application/zip'],
+                		'jpg'  => ['image/jpeg'],
+                		'jpeg' => ['image/jpeg'],
+                		'png'  => ['image/png'],
+                		'stl'  => ['application/octet-stream', 'application/sla', 'model/stl', 'application/vnd.ms-pki.stl', 'text/plain'],
+            		];
+
+            		if (!isset($allowed[$ext]) || !in_array($mime, $allowed[$ext], true)) {
+                		\Log::warning('Pièce jointe rejetée', ['ext' => $ext, 'mime' => $mime, 'attribute' => $attribute]);
+                		$fail("Le fichier a un type non autorisé (ext: .{$ext}, MIME: {$mime}).");
+            		}
+        		},
+    		],
+		]);
             // Traitement du fichier PDF principal
             if ($request->hasFile('pdf_file') && $request->file('pdf_file')->isValid()) {
                 $pdf = $request->file('pdf_file');
