@@ -1,3 +1,20 @@
+@if(session('impersonator_id'))
+    <div style="background-color: #b45309; color: #ffffff; border-bottom: 1px solid #92400e;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style="padding-top: 0.5rem; padding-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-size: 0.875rem; font-weight: 600; color: #ffffff;">
+                Vous êtes connecté en tant que
+                <span style="font-weight: 700;">{{ Auth::user()->name }}</span> ({{ Auth::user()->email }})
+            </div>
+            <form method="POST" action="{{ route('stop-impersonating') }}" style="display: inline;">
+                @csrf
+                <button type="submit" style="background-color: #ffffff; color: #b45309; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 0.25rem; border: none; cursor: pointer;">
+                    Revenir sur mon compte admin
+                </button>
+            </form>
+        </div>
+    </div>
+@endif
+
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

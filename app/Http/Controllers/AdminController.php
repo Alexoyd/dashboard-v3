@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\LegalPage;
 use App\Models\User;
 use App\Models\Client;
@@ -73,7 +75,67 @@ class AdminController extends Controller
         $users = User::with(['clients', 'apiKeys'])->get();
         return view('admin.clients.index', compact('users'));
     }
-    
+
+    public function loginAs(Request $request, User $user)
+    {
+        if ($user->is_admin) {
+            return redirect()->route('admin.clients.index')
+                ->with('error', 'Impossible de se connecter en tant qu\'administrateur.');
+        }
+
+        if ($user->id === Auth::id()) {
+            return redirect()->route('admin.clients.index')
+                ->with('error', 'Vous êtes déjà connecté avec ce compte.');
+        }
+
+        $impersonatorId = Auth::id();
+
+        Log::warning('Admin impersonation started', [
+            'admin_id' => $impersonatorId,
+            'admin_email' => Auth::user()->email,
+            'target_user_id' => $user->id,
+            'target_user_email' => $user->email,
+            'ip' => $request->ip(),
+        ]);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+        $request->session()->put('impersonator_id', $impersonatorId);
+
+        return redirect()->route('clients.index')
+            ->with('success', 'Vous êtes maintenant connecté en tant que ' . $user->name . '.');
+    }
+
+    public function stopImpersonating(Request $request)
+    {
+        $impersonatorId = $request->session()->pull('impersonator_id');
+
+        if (!$impersonatorId) {
+            return redirect()->route('clients.index');
+        }
+
+        $impersonator = User::find($impersonatorId);
+
+        if (!$impersonator || !$impersonator->is_admin) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/');
+        }
+
+        Log::warning('Admin impersonation stopped', [
+            'admin_id' => $impersonator->id,
+            'impersonated_user_id' => Auth::id(),
+            'ip' => $request->ip(),
+        ]);
+
+        Auth::login($impersonator);
+        $request->session()->regenerate();
+
+        return redirect()->route('admin.clients.index')
+            ->with('success', 'Vous êtes de retour sur votre compte administrateur.');
+    }
+
     // ===== GESTION DES TEMPLATES D'EMAILS =====
 
     public function emailTemplatesIndex()

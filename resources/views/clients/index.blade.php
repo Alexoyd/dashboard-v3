@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des questionnaires médicaux et formulaires d'adressage</title>
+    <title>Liste des questionnaires mÃ©dicaux et formulaires d'adressage</title>
     <style>
         .red-dot {
             display: inline-block;
@@ -152,15 +152,15 @@
                                 <div class="tabs-wrapper">
                                     <a href="{{ route('clients.index', ['tab' => 'dashboard']) }}" 
                                        class="tab-button {{ $currentTab == 'dashboard' ? 'active' : '' }}">
-                                        ð??? Tableau de bord
+                                        ðŸ“Š Tableau de bord
                                     </a>
                                     <a href="{{ route('clients.index', ['tab' => 'questionnaire_medical']) }}" 
                                        class="tab-button {{ $currentTab == 'questionnaire_medical' ? 'active' : '' }}">
-                                        ð??? Questionnaires mÃ©dicaux
+                                        ðŸ“‹ Questionnaires mÃ©dicaux
                                     </a>
                                     <a href="{{ route('clients.index', ['tab' => 'adressage']) }}" 
                                        class="tab-button {{ $currentTab == 'adressage' ? 'active' : '' }}">
-                                        ð?©º Formulaire d'adressage
+                                        ðŸ©º Formulaire d'adressage
                                     </a> 
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                     - Cherchez les balises <div class="stat-number" data-value="...">
                                     - Remplacez le "0" par la valeur souhaitÃ©e ou injectez via JavaScript
                                     
-                                    Pour modifier les ICÃ?NES :
+                                    Pour modifier les ICÃ”NES :
                                     - Chaque carte a une icÃ´ne SVG dans <svg class="stat-icon">
                                     - Vous pouvez remplacer le SVG par n'importe quelle icÃ´ne
                                     
@@ -297,17 +297,17 @@
                                     --}}
 
                                 @else
-                                    <!-- ========== ONGLET QUESTIONNAIRES MÃ?DICAUX ========== -->
+                                    <!-- ========== ONGLET QUESTIONNAIRES MÃ‰DICAUX ========== -->
                                     <div class="mb-6">
                                         <h1 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
                                              @if($currentTab == 'questionnaire_medical')
-                                                ð??? <span class="ml-2">Questionnaires mÃ©dicaux</span>
+                                                ðŸ“‹ <span class="ml-2">Questionnaires mÃ©dicaux</span>
                                             @else
-                                               ð?©º <span class="ml-2">Formulaire d'adressage</span>
+                                               ðŸ©º <span class="ml-2">Formulaire d'adressage</span>
                                             @endif
                                         </h1>
                                         <p class="text-gray-600 dark:text-gray-400 mt-1">
-                                            {{ $currentTab == 'questionnaire_medical' ? 'Gérez vos questionnaires de santÃ©' : 'Gérez vos formulaires d\'adressage' }}
+                                            {{ $currentTab == 'questionnaire_medical' ? 'GÃ©rez vos questionnaires de santÃ©' : 'GÃ©rez vos formulaires d\'adressage' }}
                                         </p>
                                     </div>
                                     
@@ -383,7 +383,7 @@
                                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                                                 </svg>
                                                                 <p class="text-gray-500 dark:text-gray-400 text-lg">
-                                                                    Aucun {{ $currentTab == 'questionnaire_medical' ? 'questionnaire mÃ©dical' : 'formulaire d\'adressage' }} trouvé.
+                                                                    Aucun {{ $currentTab == 'questionnaire_medical' ? 'questionnaire mÃ©dical' : 'formulaire d\'adressage' }} trouvÃ©.
                                                                 </p>
                                                                 <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">
                                                                     Les nouveaux Ã©lÃ©ments apparaÃ®tront ici automatiquement.

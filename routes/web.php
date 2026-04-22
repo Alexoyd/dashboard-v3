@@ -58,10 +58,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     
     // Clients
     Route::get('/clients', [App\Http\Controllers\AdminController::class, 'clientsList'])->name('clients.index');
-    
+    Route::post('/clients/{user}/login-as', [App\Http\Controllers\AdminController::class, 'loginAs'])->name('clients.login-as');
+
     // Google Analytics ID
     Route::patch('/users/{user}/google-analytics-id', [App\Http\Controllers\AdminController::class, 'updateGoogleAnalyticsId'])->name('users.update-analytics-id');
 });
+
+// Sortie d'impersonation (accessible à tout utilisateur authentifié ayant une session d'impersonation)
+Route::post('/stop-impersonating', [App\Http\Controllers\AdminController::class, 'stopImpersonating'])
+    ->middleware('auth')
+    ->name('stop-impersonating');
 
 // Routes pour définition de mot de passe
 Route::get('/set-password/{token}', [App\Http\Controllers\Auth\SetPasswordController::class, 'show'])

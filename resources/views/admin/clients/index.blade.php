@@ -4,6 +4,17 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
+                    @if(session('success'))
+                        <div class="mb-4 p-3 rounded bg-green-100 text-green-800 border border-green-300">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="mb-4 p-3 rounded bg-red-100 text-red-800 border border-red-300">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <div class="overflow-x-auto">
                         <div class="flex justify-between items-center mb-4">
                             <h1 class="text-3xl font-bold">Liste de tous les utilisateurs</h1>
@@ -20,6 +31,7 @@
                                     <th class="py-3 px-4 border-b text-center">Clé API</th>
                                     <th class="py-3 px-4 border-b text-center">Google Analytics ID</th>
                                     <th class="py-3 px-4 border-b text-center">Créé le</th>
+                                    <th class="py-3 px-4 border-b text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,10 +194,25 @@
                                         <td class="py-3 px-4 border-b text-center">
                                             {{ $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}
                                         </td>
+                                        <td class="py-3 px-4 border-b text-center">
+                                            @if($user->is_admin)
+                                                <span class="text-xs text-gray-400">Admin</span>
+                                            @elseif($user->id === auth()->id())
+                                                <span class="text-xs text-gray-400">Vous</span>
+                                            @else
+                                                <form method="POST" action="{{ route('admin.clients.login-as', $user) }}" class="inline"
+                                                      onsubmit="return confirm('Se connecter en tant que {{ $user->name }} ?');">
+                                                    @csrf
+                                                    <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white text-xs font-bold py-1 px-3 rounded">
+                                                        Login As
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="py-6 px-4 text-center text-gray-500">
+                                        <td colspan="7" class="py-6 px-4 text-center text-gray-500">
                                             Aucun utilisateur trouvé.
                                         </td>
                                     </tr>
